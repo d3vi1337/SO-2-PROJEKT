@@ -2,7 +2,7 @@
 
 ## **1. Instrukcja uruchomienia projektu w Linuxie**
 
-    1.1	Sklonuj repozytorium z GitHub
+    1.1Sklonuj repozytorium z GitHub
     Wykorzystaj komendę : git clone https://github.com/d3vi1337/SO-2-PROJEKT
 
     1.2 Przejdź do katalogu, w którym znajduje się projekt
