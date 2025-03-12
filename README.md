@@ -9,8 +9,8 @@ Wykorzystaj komendę : ```git clone https://github.com/d3vi1337/SO-2-PROJEKT```
 Wykorzystaj komendę : ```cd SO-2-PROJEKT```
 
 ### 1.3 Skompiluj projekt za pomocą Makefile ###
-Wykorzystaj komendę : `make`
-Ewentualnie skompiluj projekt ręcznie
+Wykorzystaj komendę : `make`                                                                                         
+Ewentualnie skompiluj projekt ręcznie                                                                                
 Wykorzystaj komendę : ```g++ -Wall -std=c++20 -pthread dining_ph_problem_P1.cpp -o dining_philosophers```
 
 ### 1.4 Uruchom skompilowany program ###
@@ -22,8 +22,7 @@ Wykorzystaj skrót klawiszowy : ```CTRL + C```
 ## **2. Opis problemu** ##
 
 ### 2.1 Problem jedzących filozofów (**dining philosophers problem**) ###
-Zadanie to zostało początkowo w innej wersji zaprezentowane przez
-*E. Dijkstre*. Dotyczy ono problemu synchronizacji procesów w środowisku współbieżnym.
+Zadanie to zostało początkowo w innej wersji zaprezentowane przez*E. Dijkstre*. Dotyczy ono problemu synchronizacji procesów w środowisku współbieżnym.
     
 Każdy z filozofów może znajdować się w jednym z trzech stanów:
 - **THINKING** (filozof rozmyśla)
