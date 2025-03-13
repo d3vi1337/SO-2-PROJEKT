@@ -77,15 +77,15 @@ Każdy z wątków jest uruchamiany poprzez wywołanie funkcji **philosopher** po
 - Jedzenie: Jeżeli może jeść to przystępuje do tego, w innym wypadku czeka na kolej
 - Odkładanie widelców: Filozof odkłada widelce, znowu myśli i sprawdza czy sąsiedzi mogą jeść
 
-### Sekcje krytyczne (**Critical Sections**) ###
+### 3.2 Sekcje krytyczne (**Critical sections**) ###
 Sekcje krytyczne to miejsca w programie, w którym korzysta się z współdzielonego zasobu.
 W celu zabezpieczeniu sekcji krytycznych, czyli zapewnieniu wzajemnego wykluczania (**mutual exclusion**) w programie wykorzystano muteksy - czyli mechanizmy synchronizacji.
 Sekcje krytyczne w programie występują w dwóch miejscach:
 
-- Funkcja *take_fork*: występuje w niej m.in. modyfikacja współdzielonej tablicy stanów filozofów *state[]*.
-  - Rozwiązanie: Na początku funkcji zastosowany został *mutex1.lock()*, natomiast po wykonaniu *test* mutex jest zwalniany za pomocą *mutex1.unlock()*. Dzięki zastosowaniu muteksowi sekcja krytyczna jest zabezpieczona, tylko jeden wątek (filozof) może edytować wspólny zasób *state* co zapobiega wyścigom.
+- Funkcja ***take_fork***: występuje w niej m.in. modyfikacja współdzielonej tablicy stanów filozofów ***state[]***.
+  - Rozwiązanie: Na początku funkcji zastosowany został ***mutex1.lock()***, natomiast po wykonaniu ***test*** mutex jest zwalniany za pomocą ***mutex1.unlock()***. Dzięki zastosowaniu muteksowi sekcja krytyczna jest zabezpieczona, tylko jeden wątek (filozof) może edytować wspólny zasób ***state*** co zapobiega wyścigom.
 
-- Funkcja *put_fork*: występuje w niej również modyfikacja współdzielonej tablicy stanów filozofów *state[]*.
-  - Rozwiązanie: Podobnie jak w poprzedniej funkcji zastosowano muteks dla sekcji krytycznej, dzięki czemu tablica *state* może być w danej chwili wyłącznie modyfikowana przez jeden wątek.
+- Funkcja ***put_fork***: występuje w niej również modyfikacja współdzielonej tablicy stanów filozofów ***state[]***.
+  - Rozwiązanie: Podobnie jak w poprzedniej funkcji zastosowano muteks dla sekcji krytycznej, dzięki czemu tablica ***state*** może być w danej chwili wyłącznie modyfikowana przez jeden wątek.
 
-- Funkcja *test*: równiez modyfikuje tablicę *state*. Lecz wywołania funkcji odbywają się wyłącznie w funkcjach *take_fork* oraz *put_fork*, które zostały już zabepieczone muteksami.
+- Funkcja ***test***: równiez modyfikuje tablicę ***state***. Lecz wywołania funkcji odbywają się wyłącznie w funkcjach ***take_fork*** oraz ***put_fork***, które zostały już zabepieczone muteksami.
