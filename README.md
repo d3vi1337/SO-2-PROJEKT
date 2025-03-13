@@ -22,7 +22,7 @@ Wykorzystaj skrót klawiszowy : ```CTRL + C```
 ## **2. Opis problemu** ##
 
 ### 2.1 Problem jedzących filozofów (**dining philosophers problem**) ###
-Zadanie to zostało początkowo w innej wersji zaprezentowane przez*E. Dijkstre*. Dotyczy ono problemu synchronizacji procesów w środowisku współbieżnym.
+Zadanie to zostało początkowo w innej wersji zaprezentowane przez *E. Dijkstre*. Dotyczy ono problemu synchronizacji procesów w środowisku współbieżnym.
     
 Każdy z filozofów może znajdować się w jednym z trzech stanów:
 - **THINKING** (filozof rozmyśla)
@@ -63,3 +63,29 @@ zmienić jednocześnie swój stan. Prowadziłoby to do nieprzewidywanych sytuacj
 
 Program zapobiega występowaniu wyścigów dzięki zabezpieczeniu sekcji krytycznej muteksami, przez 
 co wyłącznie jeden filozof naraz może zmieniać swój stan.
+
+## **3. Wątki i sekcje krytyczne w programie** ##
+
+### 3.1 Wątki (**Threads**) ###
+Liczba uruchomionych wątków jest określona przez wprowadzony argument liczby filozofów do programu (**N**).
+Więc liczba filozofów **=** liczba wątków.
+Każdy wątek reprezentuje osobnego filozofa, który przechodzi przez cykl - myślenie, bycie głodnym oraz jedzenie:
+Każdy z wątków jest uruchamiany poprzez wywołanie funkcji **philosopher** podając za argument liczbę filozofów, funkcja ta reprezentuje zachowanie filozofa:
+- Myślenie: filozof myśli
+- Bycie głodnym: filozof staje się głodny
+- Próba podniesienia widelców: sprawdzane jest czy filozof może uzyskać widelce
+- Jedzenie: Jeżeli może jeść to przystępuje do tego, w innym wypadku czeka na kolej
+- Odkładanie widelców: Filozof odkłada widelce, znowu myśli i sprawdza czy sąsiedzi mogą jeść
+
+### Sekcje krytyczne (**Critical Sections**) ###
+Sekcje krytyczne to miejsca w programie, w którym korzysta się z współdzielonego zasobu.
+W celu zabezpieczeniu sekcji krytycznych, czyli zapewnieniu wzajemnego wykluczania (**mutual exclusion**) w programie wykorzystano muteksy - czyli mechanizmy synchronizacji.
+Sekcje krytyczne w programie występują w dwóch miejscach:
+
+- Funkcja *take_fork*: występuje w niej m.in. modyfikacja współdzielonej tablicy stanów filozofów *state[]*.
+  - Rozwiązanie: Na początku funkcji zastosowany został *mutex1.lock()*, natomiast po wykonaniu *test* mutex jest zwalniany za pomocą *mutex1.unlock()*. Dzięki zastosowaniu muteksowi sekcja krytyczna jest zabezpieczona, tylko jeden wątek (filozof) może edytować wspólny zasób *state* co zapobiega wyścigom.
+
+- Funkcja *put_fork*: występuje w niej również modyfikacja współdzielonej tablicy stanów filozofów *state[]*.
+  - Rozwiązanie: Podobnie jak w poprzedniej funkcji zastosowano muteks dla sekcji krytycznej, dzięki czemu tablica *state* może być w danej chwili wyłącznie modyfikowana przez jeden wątek.
+
+- Funkcja *test*: równiez modyfikuje tablicę *state*. Lecz wywołania funkcji odbywają się wyłącznie w funkcjach *take_fork* oraz *put_fork*, które zostały już zabepieczone muteksami.
